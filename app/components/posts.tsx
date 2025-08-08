@@ -1,36 +1,60 @@
-import Link from 'next/link'
-import { formatDate, getBlogPosts } from 'app/blog/utils'
+'use client'
+
+import { motion } from 'framer-motion'
+
+const projects = [
+  {
+    title: '{Insert my app dev project}',
+    description: 'A fast and efficient Vim configuration.',
+    link: 'https://github.com/yourusername/vim-setup',
+  },
+  {
+    title: '{insert my datasci project}',
+    description: 'Research paper on static typing benefits.',
+    link: 'https://example.com/static-typing.pdf',
+  },
+  {
+    title: 'Economic Analysis of Online Market Competition: Regressions and Price Dispersion Evidence from Olist',
+    description: 'A portfolio with dark mode support and sleek design.',
+    link: 'https://github.com/yourusername/dark-mode-portfolio',
+  },
+  {
+    title: 'Policy Brief',
+    description: 'An in-depth look at the classic debate.',
+    link: 'https://yourblog.com/tabs-vs-spaces',
+  },
+] 
 
 export function BlogPosts() {
-  let allBlogs = getBlogPosts()
-
   return (
-    <div>
-      {allBlogs
-        .sort((a, b) => {
-          if (
-            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
-          ) {
-            return -1
-          }
-          return 1
-        })
-        .map((post) => (
-          <Link
-            key={post.slug}
-            className="flex flex-col space-y-1 mb-4"
-            href={`/blog/${post.slug}`}
+    <ul className="space-y-8 max-w-6xl mx-auto px-6">
+      {projects.map((project, index) => {
+        const isEven = index % 2 === 0
+        const directionX = isEven ? -50 : 50
+
+        return (
+          <motion.li
+            key={project.title}
+            initial={{ opacity: 0, x: directionX }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            className="border rounded p-8 shadow-sm hover:shadow-md min-h-[200px]"
           >
-            <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
-                {formatDate(post.metadata.publishedAt, false)}
-              </p>
-              <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
-                {post.metadata.title}
-              </p>
-            </div>
-          </Link>
-        ))}
-    </div>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg font-semibold text-blue-600 hover:underline"
+            >
+              {project.title}
+            </a>
+            <p className="mt-1 text-gray-700 dark:text-gray-300">
+              {project.description}
+            </p>
+          </motion.li>
+        )
+      })}
+    </ul>
   )
 }
