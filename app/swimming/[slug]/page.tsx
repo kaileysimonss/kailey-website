@@ -1,58 +1,93 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
-import { getBlogPosts, Post } from 'app/swimming/utils'
+import { formatDate, getBlogPosts } from 'app/swimming/utils'
 import { baseUrl } from 'app/sitemap'
-import { Metadata } from 'next'
 
-// --- Type for page props ---
-interface PageProps {
-  params: { slug: string }
+export async function generateStaticParams() {
+  let posts = getBlogPosts()
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
 }
 
-// --- Generate static params for SSG ---
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getBlogPosts()
-  return posts.map((post) => ({ slug: post.slug }))
-}
+export function generateMetadata({ params }) {
+  let post = getBlogPosts().find((post) => post.slug === params.slug)
+  if (!post) {
+    return
+  }
 
-// --- Generate metadata for each page ---
-export async function generateMetadata({ params }: PageProps): Promise<Metadata | undefined> {
-  const post = getBlogPosts().find((p) => p.slug === params.slug)
-  if (!post) return
-
-  const ogImage = post.metadata.image || `${baseUrl}/og?title=${encodeURIComponent(post.metadata.title)}`
+  let {
+    title,
+    publishedAt: publishedTime,
+    summary: description,
+    image,
+  } = post.metadata
+  let ogImage = image
+    ? image
+    : `${baseUrl}/og?title=${encodeURIComponent(title)}`
 
   return {
-    title: post.metadata.title,
-    description: post.metadata.summary,
+    title,
+    description,
     openGraph: {
-      title: post.metadata.title,
-      description: post.metadata.summary,
+      title,
+      description,
       type: 'article',
-      publishedTime: post.metadata.publishedAt,
-      url: `${baseUrl}/swimming/${post.slug}`,
-      images: [{ url: ogImage }],
+      publishedTime,
+      url: `${baseUrl}/blog/${post.slug}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.metadata.title,
-      description: post.metadata.summary,
+      title,
+      description,
       images: [ogImage],
     },
   }
 }
 
-// --- Page component ---
-export default async function SwimmingPost({ params }: PageProps) {
-  const post = getBlogPosts().find((p) => p.slug === params.slug)
-  if (!post) notFound()
+export default function Blog({ params }) {
+  let post = getBlogPosts().find((post) => post.slug === params.slug)
+
+  if (!post) {
+    notFound()
+  }
 
   return (
     <section>
-      <h1 className="title font-semibold text-2xl tracking-tighter">{post.metadata.title}</h1>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.metadata.title,
+            datePublished: post.metadata.publishedAt,
+            dateModified: post.metadata.publishedAt,
+            description: post.metadata.summary,
+            image: post.metadata.image
+              ? `${baseUrl}${post.metadata.image}`
+              : `/og?title=${encodeURIComponent(post.metadata.title)}`,
+            url: `${baseUrl}/blog/${post.slug}`,
+            author: {
+              '@type': 'Person',
+              name: 'My Portfolio',
+            },
+          }),
+        }}
+      />
+      <h1 className="title font-semibold text-2xl tracking-tighter">
+        {post.metadata.title}
+      </h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {new Date(post.metadata.publishedAt).toLocaleDateString()}
+          {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
       <article className="prose">
