@@ -35,7 +35,7 @@ export function generateMetadata({ params }) {
       description,
       type: 'article',
       publishedTime,
-      url: `${baseUrl}/blog/${post.slug}`,
+      url: `${baseUrl}/swimming/${post.slug}`, // updated
       images: [
         {
           url: ogImage,
@@ -51,7 +51,7 @@ export function generateMetadata({ params }) {
   }
 }
 
-export default function Blog({ params }) {
+export default function SwimmingPost({ params }) {
   let post = getBlogPosts().find((post) => post.slug === params.slug)
 
   if (!post) {
@@ -74,7 +74,7 @@ export default function Blog({ params }) {
             image: post.metadata.image
               ? `${baseUrl}${post.metadata.image}`
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
+            url: `${baseUrl}/swimming/${post.slug}`, // updated
             author: {
               '@type': 'Person',
               name: 'My Portfolio',
