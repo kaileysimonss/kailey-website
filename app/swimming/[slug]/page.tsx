@@ -33,7 +33,12 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   }
 }
 
-export default function SwimmingPost({ params }: { params: { slug: string } }) {
+// Make the page async and type props correctly
+interface PageProps {
+  params: { slug: string }
+}
+
+export default async function SwimmingPost({ params }: PageProps) {
   const post = getBlogPosts().find((p) => p.slug === params.slug)
   if (!post) notFound()
 
