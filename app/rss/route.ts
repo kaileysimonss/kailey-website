@@ -1,16 +1,10 @@
 import { baseUrl } from 'app/sitemap'
-import { getBlogPosts } from 'app/swimming/utils'
 
 export async function GET() {
-  let allBlogs = await getBlogPosts()
+  const allBlogs: any[] = [] // no posts
 
   const itemsXml = allBlogs
-    .sort((a, b) => {
-      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
-        return -1
-      }
-      return 1
-    })
+    .sort((a, b) => 0) // empty array, nothing to sort
     .map(
       (post) =>
         `<item>

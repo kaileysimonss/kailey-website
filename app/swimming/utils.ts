@@ -49,10 +49,6 @@ function getMDXData(dir) {
   })
 }
 
-// utils.ts
-export function getBlogPosts() {
-  return [] // no posts under /swimming
-}
 
 export function formatDate(date: string, includeRelative = false) {
   let currentDate = new Date()
