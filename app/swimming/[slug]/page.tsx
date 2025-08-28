@@ -1,47 +1,51 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+import { notFound } from 'next/navigation'
+import { CustomMDX } from 'app/components/mdx'
+import { getBlogPosts, Post } from 'app/swimming/utils'
+import { baseUrl } from 'app/sitemap'
 
-export interface PostMetadata {
-  title: string
-  publishedAt: string
-  summary: string
-  image?: string
+export async function generateStaticParams() {
+  const posts = getBlogPosts()
+  return posts.map((post) => ({ slug: post.slug }))
 }
 
-export interface Post {
-  slug: string
-  metadata: PostMetadata
-  content: string
-}
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const post = getBlogPosts().find((p) => p.slug === params.slug)
+  if (!post) return
+  const ogImage = post.metadata.image || `${baseUrl}/og?title=${encodeURIComponent(post.metadata.title)}`
 
-const postsDirectory = path.join(process.cwd(), 'app/swimming/posts')
-
-export function getBlogPosts(): Post[] {
-  if (!fs.existsSync(postsDirectory)) {
-    console.warn('No swimming posts directory found:', postsDirectory)
-    return []
+  return {
+    title: post.metadata.title,
+    description: post.metadata.summary,
+    openGraph: {
+      title: post.metadata.title,
+      description: post.metadata.summary,
+      type: 'article',
+      publishedTime: post.metadata.publishedAt,
+      url: `${baseUrl}/swimming/${post.slug}`,
+      images: [{ url: ogImage }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.metadata.title,
+      description: post.metadata.summary,
+      images: [ogImage],
+    },
   }
+}
 
-  const filenames = fs.readdirSync(postsDirectory).filter((name) => name.endsWith('.mdx'))
+export default function SwimmingPost({ params }: { params: { slug: string } }) {
+  const post = getBlogPosts().find((p) => p.slug === params.slug)
+  if (!post) notFound()
 
-  return filenames.map((filename) => {
-    const filePath = path.join(postsDirectory, filename)
-    const fileContents = fs.readFileSync(filePath, 'utf-8')
-
-    const { data, content } = matter(fileContents)
-
-    const slug = filename.replace(/\.mdx$/, '')
-
-    return {
-      slug,
-      metadata: {
-        title: data.title || slug,
-        publishedAt: data.publishedAt || new Date().toISOString(),
-        summary: data.summary || '',
-        image: data.image || '',
-      },
-      content,
-    }
-  })
+  return (
+    <section>
+      <h1 className="title font-semibold text-2xl tracking-tighter">{post.metadata.title}</h1>
+      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">{new Date(post.metadata.publishedAt).toLocaleDateString()}</p>
+      </div>
+      <article className="prose">
+        <CustomMDX source={post.content} />
+      </article>
+    </section>
+  )
 }
