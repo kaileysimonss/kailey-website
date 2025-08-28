@@ -2,15 +2,24 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { getBlogPosts, Post } from 'app/swimming/utils'
 import { baseUrl } from 'app/sitemap'
+import { Metadata } from 'next'
 
-export async function generateStaticParams() {
+// --- Type for page props ---
+interface PageProps {
+  params: { slug: string }
+}
+
+// --- Generate static params for SSG ---
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getBlogPosts()
   return posts.map((post) => ({ slug: post.slug }))
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
+// --- Generate metadata for each page ---
+export async function generateMetadata({ params }: PageProps): Promise<Metadata | undefined> {
   const post = getBlogPosts().find((p) => p.slug === params.slug)
   if (!post) return
+
   const ogImage = post.metadata.image || `${baseUrl}/og?title=${encodeURIComponent(post.metadata.title)}`
 
   return {
@@ -33,11 +42,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   }
 }
 
-// Make the page async and type props correctly
-interface PageProps {
-  params: { slug: string }
-}
-
+// --- Page component ---
 export default async function SwimmingPost({ params }: PageProps) {
   const post = getBlogPosts().find((p) => p.slug === params.slug)
   if (!post) notFound()
@@ -46,7 +51,9 @@ export default async function SwimmingPost({ params }: PageProps) {
     <section>
       <h1 className="title font-semibold text-2xl tracking-tighter">{post.metadata.title}</h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">{new Date(post.metadata.publishedAt).toLocaleDateString()}</p>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          {new Date(post.metadata.publishedAt).toLocaleDateString()}
+        </p>
       </div>
       <article className="prose">
         <CustomMDX source={post.content} />
