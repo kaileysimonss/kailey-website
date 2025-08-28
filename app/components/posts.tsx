@@ -7,7 +7,7 @@ const projects = [
     title: 'Personal Portfolio Website',
     description: 'I built this website to show off my projects and experiences! It’s made with Next.js, TypeScript, and TailwindCSS, and includes smooth animations and interactive components. The site is fully responsive, so it looks good on any device.',
     links: [
-      { label: 'View GitHub Repo', url: 'https://github.com/yourusername/vim-setup', type: 'repo' },
+      { label: 'View GitHub Repo', url: 'https://github.com/kaileysimonss/kailey-website', type: 'repo' },
     ],
   },
   // {
