@@ -53,6 +53,17 @@ const internships = [
   },
 ]
 
+const research = [
+  {
+    title: 'Undergraduate Researcher at MIT Center for Collective Intelligence',
+    description: 'I designed a feedback mechanism for Supermind Ideator, a system that uses LLMs and collective intelligence to support organizational design. I engineered prompts for models including GPT-4o to generate creative, pragmatic, and critical feedback modes, and designed surveys and experimental studies to evaluate their effectiveness. I also collaborated with researchers to analyze results using ANOVA and co-authored a research paper on how people respond to AI feedback with different “personalities.”'
+  },
+  {
+    title: 'Undergraduate Research Assistant at MIT Media Lab',
+    description: 'I improved the conversational skills of Jibo, the world\'s first social family robot, by cleaning and analyzing over 75,000 Q&A pairs and engineering prompts for GPT-3.5 Turbo and GPT-4. I also applied retrieval-augmented generation techniques to increase response accuracy while preserving Jibo’s distinctive interaction style.'
+  },
+]
+
 function AnimatedList({
   items,
 }: {
@@ -123,7 +134,7 @@ export function BlogPosts() {
       {/* Portfolio Section */}
       <section>
         <h2 className="text-2xl font-bold mb-6 text-center text-indigo-400">
-          My Portfolio
+          My Personal Portfolio
         </h2>
         <AnimatedList items={projects} />
       </section>
@@ -134,6 +145,13 @@ export function BlogPosts() {
           My Internship Experiences
         </h2>
         <AnimatedList items={internships} />
+      </section>
+      {/* Research Section */}
+      <section>
+        <h2 className="text-2xl font-bold mb-6 text-center text-indigo-400">
+          My Research Experiences
+        </h2>
+        <AnimatedList items={research} />
       </section>
     </div>
   )
