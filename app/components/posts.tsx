@@ -3,13 +3,6 @@
 import { motion } from 'framer-motion'
 
 const projects = [
-  {
-    title: 'Personal Portfolio Website',
-    description: 'I built this website to show off my projects and experiences! It’s made with Next.js, TypeScript, and TailwindCSS, and includes smooth animations and interactive components. The site is fully responsive, so it looks good on any device.',
-    links: [
-      { label: 'View GitHub Repo', url: 'https://github.com/kaileysimonss/kailey-website', type: 'repo' },
-    ],
-  },
   // {
   //   title: '{Insert another project}',
   //   description: 'An in-depth look at the classic debate.',
@@ -18,6 +11,13 @@ const projects = [
   //   ],
   // },
   {
+    title: 'Exploring the Effectiveness of Using LLM-Based Chatbots for Combatting Misinformation',
+    description: 'In this group project, I helped design and analyze an experiment testing how AI chatbots could reduce belief in political conspiracy theories. I led the data cleaning and manipulation, exploratory data analysis, and regression analyses to see what actually drives belief change. Our findings showed that it’s less about the chatbot’s “identity” and more about trust and the quality of the conversation. The project gave me experience with both experimental design and data science techniques to study real-world impacts of AI.',
+    links: [
+      { label: 'View PDF', url: '/images/Simons_Kailey_17.275_paper.pdf', type: 'pdf' },
+    ],
+  },
+  {
     title: 'Economic Analysis of Online Market Competition: Regressions and Price Dispersion Evidence from Olist',
     description: 'I analyzed over 100,000 Olist marketplace transactions using Python, Pandas, and visualized trends with Matplotlib and Seaborn to study how competition and price transparency affect seller pricing. Through panel data and fixed-effects regressions, I quantified how base pricing and shipping obfuscation drive price dispersion in online markets. This project highlights my ability to work with large datasets, generate insights through data visualization, and implement empirical models to solve complex problems.',
     links: [
@@ -25,15 +25,30 @@ const projects = [
       { label: 'View Notebook', url: '/images/14.27_final_code.ipynb', type: 'notebook' }
     ],
   },
+  {
+    title: 'Personal Portfolio Website',
+    description: 'I built this website to show off my projects and experiences! It’s made with Next.js, TypeScript, and TailwindCSS, and includes smooth animations and interactive components. The site is fully responsive, so it looks good on any device.',
+    links: [
+      { label: 'View GitHub Repo', url: 'https://github.com/kaileysimonss/kailey-website', type: 'repo' },
+    ],
+  },
 ]
 
 const internships = [
   {
-    title: 'Investment Systems Intern at Vanguard',
+    title: 'Data & AI Analyst Intern at Accenture',
+    description: 'Coming soon (Summer 2026)!'
+  },
+  {
+    title: 'Data Science & AI Engineer Intern at Nasdaq',
+    description: 'Coming soon (Winter 2026)!'
+  },
+  {
+    title: 'Software Engineer Intern at Vanguard',
     description: 'I pioneered the integration of AI in the Portfolio Review department by creating a real-time analytics platform with AWS Lambda and Bedrock, giving analysts sharper insights into fund manager performance. I collaborated with fellow interns to build a GARCHX model that nowcasted S&P 500 volatility, strengthening investment strategy decisions. Beyond the technical work, I scoped requirements, designed architecture, deployed solutions, and presented findings to senior leadership to influence long-term strategy.'
   },
   {
-    title: 'AI Engineer Intern at Lendica',
+    title: 'AI Engineer Intern at Daylit',
     description: 'I built a web scraping pipeline powered by Retrieval-Augmented Generation (RAG) to screen loan applicants’ online presence for criminal records or signs of fraud. This system automated the collection and analysis of real-time data, reducing manual review and improving detection efficiency. By integrating RAG with scalable scraping and ETL workflows, the pipeline provided faster, more reliable insights for applicant risk assessment.'
   },
 ]
@@ -61,7 +76,7 @@ function AnimatedList({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true, amount: 0.5 }}
-            className="border rounded p-8 shadow-sm hover:shadow-md min-h-[200px]"
+            className="border rounded p-8 shadow-sm hover:shadow-md"
           >
             <h3 className="text-lg font-semibold text-blue-600">{item.title}</h3>
             <p className="mt-1 text-gray-700 dark:text-gray-300">{item.description}</p>
