@@ -11,6 +11,13 @@ const projects = [
   //   ],
   // },
   {
+    title: 'Paid Family Leave and the Role of Industry Gender Composition on Maternal Labor Supply',
+    description: 'In this individual project, I estimated a triple difference-in-differences model using Current Population Survey data (1999–2025) to test whether paid family leave policies have heterogeneous effects on maternal labor supply across industries with different gender compositions, incorporating state, year, and industry-by-state/year fixed effects along with event study analysis to validate parallel trends assumptions. This project strengthened my skills in applied econometrics, including causal inference design, panel data methods, and translating statistical results into policy-relevant conclusions.',
+    links: [
+      { label: 'View PDF', url: '/images/14.33_paper.pdf', type: 'pdf' },
+    ],
+  },
+  {
     title: 'Exploring the Effectiveness of Using LLM-Based Chatbots for Combatting Misinformation',
     description: 'In this group project, I helped design and analyze an experiment testing how AI chatbots could reduce belief in political conspiracy theories. I led the data cleaning and manipulation, exploratory data analysis, and regression analyses to see what actually drives belief change. Our findings showed that it’s less about the chatbot’s “identity” and more about trust and the quality of the conversation. The project gave me experience with both experimental design and data science techniques to study real-world impacts of AI.',
     links: [
@@ -37,11 +44,11 @@ const projects = [
 const internships = [
   {
     title: 'Data & AI Analyst Intern at Accenture',
-    description: 'Coming soon (Summer 2026)!'
+    description: 'I led agentic AI rollout strategy, architecting three AI agents projected to each save approximately 20 analyst hours per week, and spearheaded development and improvement of weekly Copilot adoption analytics. This work built my skills in translating AI capabilities into measurable business impact and communicating technical results to senior stakeholders.'
   },
   {
     title: 'Data Science & AI Engineer Intern at Nasdaq',
-    description: 'Coming soon (Winter 2026)!'
+    description: 'I evaluated and implemented two models from academic literature to improve the performance of an ML-powered system tracking the National Best Bid and Offer (NBBO) in a fast-paced trading environment, which taught me how to apply statistical analysis to real-world, latency-sensitive infrastructure where model performance directly informs trading decisions.'
   },
   {
     title: 'Software Engineer Intern at Vanguard',
@@ -54,6 +61,10 @@ const internships = [
 ]
 
 const research = [
+  {
+    title: 'Undergraduate Researcher at MIT Computer Science and Artificial Intelligence Laboratory (CSAIL)',
+    description: 'I analyzed machine learning models for Brazilian Portuguese audio deepfake detection, using RMS normalization to recover accuracy from 42% to 99.5% under codec compression (work accepted to BRACIS and published by Springer Nature) and developed a framework for detecting and mitigating hallucinations in multi-agent financial QA systems (published in MDPI). Together, these projects improved my ability to design rigorous statistical evaluations, diagnose model failure modes, and validate findings to a publishable standard.'
+  },
   {
     title: 'Undergraduate Researcher at MIT Center for Collective Intelligence',
     description: 'I designed a feedback mechanism for Supermind Ideator, a system that uses LLMs and collective intelligence to support organizational design. I engineered prompts for models including GPT-4o to generate creative, pragmatic, and critical feedback modes, and designed surveys and experimental studies to evaluate their effectiveness. I also collaborated with researchers to analyze results using ANOVA and co-authored a research paper on how people respond to AI feedback with different “personalities.”'
