@@ -11,6 +11,13 @@ const projects = [
   //   ],
   // },
   {
+    title: 'SloanSync',
+    description: 'In this group project, I designed and built SloanSync, a prototype platform connecting MIT undergraduate and graduate students, who often share classes but rarely interact due to a lack of structural incentive for graduate students to engage. I used AI-assisted tools to move quickly from concept to working prototype, scoping the product around graduate student incentives rather than relying on goodwill alone, with an eye toward future integration into Canvas, MIT\'s existing course platform. This project strengthened my product thinking, including diagnosing root-cause friction in user behavior, incentive design, and rapid AI-assisted prototyping.',
+    links: [
+      { label: 'View Live Site', url: 'https://sloan-sync.vercel.app/', type: 'site' },
+    ],
+  },
+  {
     title: 'Paid Family Leave and the Role of Industry Gender Composition on Maternal Labor Supply',
     description: 'In this individual project, I estimated a triple difference-in-differences model using Current Population Survey data (1999–2025) to test whether paid family leave policies have heterogeneous effects on maternal labor supply across industries with different gender compositions, incorporating state, year, and industry-by-state/year fixed effects along with event study analysis to validate parallel trends assumptions. This project strengthened my skills in applied econometrics, including causal inference design, panel data methods, and translating statistical results into policy-relevant conclusions.',
     links: [

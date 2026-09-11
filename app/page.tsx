@@ -16,7 +16,7 @@ export default function Page() {
           </p>
           <p className="text-lg md:text-lg text-gray-300 leading-relaxed">
             I love using data to solve real-world problems and create meaningful change. 
-            My interests include data science, machine learning, and web development. 
+            My interests include data science, machine learning/AI, full-stack development, and product management. 
             I'm passionate about learning new skills and taking on challenges that push 
             me to grow both personally and professionally. Feel free to explore my portfolio 
             below to see some of the projects I've worked on!
